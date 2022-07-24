@@ -6,6 +6,6 @@ namespace DesafioImpar.Domain.Models
     {
         public string Base64 { get; set; }
 
-        public List<Card> Cards { get; set; }
+        public Card Card { get; set; }
     }
 }

@@ -24,6 +24,10 @@ namespace DesafioImpart.Presentation.Controllers
             var fileAsString = IFormFileToString(file);
             return await SendCommand(new PostCardWithImageRequest(request.Name, request.Status, fileAsString));
         }
+
+        [HttpDelete("{id}")]
+        public async Task<ActionResult> Delete(int id)
+            => await SendCommand(new DeleteCardRequest(id));
         
     }
 }

@@ -45,7 +45,8 @@ namespace DesafioImpar.Infra.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_Cards_PhotoId",
                 table: "Cards",
-                column: "PhotoId");
+                column: "PhotoId",
+                unique: true);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

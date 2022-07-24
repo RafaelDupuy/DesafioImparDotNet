@@ -42,9 +42,10 @@ namespace DesafioImpar.Infra.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("PhotoId");
+                    b.HasIndex("PhotoId")
+                        .IsUnique();
 
-                    b.ToTable("Cards");
+                    b.ToTable("Cards", (string)null);
                 });
 
             modelBuilder.Entity("DesafioImpar.Domain.Models.Photo", b =>
@@ -60,14 +61,14 @@ namespace DesafioImpar.Infra.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Photos");
+                    b.ToTable("Photos", (string)null);
                 });
 
             modelBuilder.Entity("DesafioImpar.Domain.Models.Card", b =>
                 {
                     b.HasOne("DesafioImpar.Domain.Models.Photo", "Photo")
-                        .WithMany("Cards")
-                        .HasForeignKey("PhotoId")
+                        .WithOne("Card")
+                        .HasForeignKey("DesafioImpar.Domain.Models.Card", "PhotoId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -76,7 +77,7 @@ namespace DesafioImpar.Infra.Migrations
 
             modelBuilder.Entity("DesafioImpar.Domain.Models.Photo", b =>
                 {
-                    b.Navigation("Cards");
+                    b.Navigation("Card");
                 });
 #pragma warning restore 612, 618
         }

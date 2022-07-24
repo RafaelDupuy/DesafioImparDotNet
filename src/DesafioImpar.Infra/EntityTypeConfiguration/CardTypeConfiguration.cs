@@ -11,7 +11,7 @@ namespace DesafioImpar.Infra.EntityTypeConfiguration
             builder.HasKey(k => k.Id);
             builder.Property(p => p.Name).HasMaxLength(100);
             builder.Property(p => p.Status).HasMaxLength(100);
-            builder.HasOne(p => p.Photo).WithMany(c => c.Cards);
+            builder.HasOne(p => p.Photo).WithOne(c => c.Card).OnDelete(DeleteBehavior.Cascade);
         }
     }
 }
