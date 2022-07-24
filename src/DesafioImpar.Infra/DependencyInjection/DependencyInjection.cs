@@ -1,6 +1,8 @@
 ﻿using DesafioImpar.Infra.Context;
 using DesafioImpar.Infra.Repositories;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -13,6 +15,7 @@ namespace DesafioImpar.Infra.DependencyInjection
         {
             services.AddDatabase(configuration);
             services.AddRepositories();
+            services.MigrateDatabase();
         }
 
         private static void AddRepositories(this IServiceCollection services)
@@ -23,5 +26,13 @@ namespace DesafioImpar.Infra.DependencyInjection
 
         private static void AddDatabase(this IServiceCollection services, IConfiguration configuration)
             => services.AddDbContext<ImparContext>(opt => opt.UseSqlServer(configuration.GetConnectionString("Default")));
+
+        private static void MigrateDatabase(this IServiceCollection services)
+        {
+            var serviceProvider = services.BuildServiceProvider();
+            var context = serviceProvider.GetRequiredService<ImparContext>();
+            if (!context.Database.GetService<IRelationalDatabaseCreator>().Exists())
+                context.Database.Migrate();
+        }
     }
 }
