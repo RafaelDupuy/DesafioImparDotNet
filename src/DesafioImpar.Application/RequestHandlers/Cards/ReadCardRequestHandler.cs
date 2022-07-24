@@ -2,21 +2,24 @@
 using DesafioImpar.Application.Requests.Card;
 using DesafioImpar.Application.Shared;
 using DesafioImpar.Application.ViewModels.Card;
+using DesafioImpar.Domain.Models;
 using DesafioImpar.Infra.Interfaces;
 using MediatR;
 
 namespace DesafioImpar.Application.RequestHandlers.Cards
 {
-    public class ReadCardRequestHandler : BaseRequestHandler, IRequestHandler<GetAllCardsWithPhotoRequest, OperationResult>
+    public class ReadCardRequestHandler : BaseRequestHandler,
+        IRequestHandler<GetAllCardsODataRequest, IQueryable<CardWithPhotoViewModel>>
     {
         private readonly ICardRepository _cardRepo;
+
         public ReadCardRequestHandler(IMapper mapper, ICardRepository cardRepo) : base(mapper)
             => _cardRepo = cardRepo;
 
-        public async Task<OperationResult> Handle(GetAllCardsWithPhotoRequest request, CancellationToken cancellationToken)
+        public Task<IQueryable<CardWithPhotoViewModel>> Handle(GetAllCardsODataRequest request, CancellationToken cancellationToken)
         {
-            var cards = await _cardRepo.GetAllCardsWithPhoto();
-            return Success(Mapper.Map<List<CardWithPhotoViewModel>>(cards));
+            var cards = Mapper.ProjectTo<CardWithPhotoViewModel>(_cardRepo.Query());
+            return Task.FromResult(cards);
         }
     }
 }

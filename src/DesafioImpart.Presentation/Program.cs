@@ -1,11 +1,14 @@
 using DesafioImpar.Application.DependencyInjection;
 using DesafioImpar.Infra.DependencyInjection;
+using Microsoft.AspNetCore.OData;
 
 var builder = WebApplication.CreateBuilder(args);
 
 var configuration = builder.Configuration;
 
-builder.Services.AddControllers();
+builder.Services.AddControllers().AddOData(
+    opt => opt.Count().Filter().SetMaxTop(20));
+
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddApplication();

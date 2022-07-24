@@ -6,7 +6,7 @@ namespace DesafioImpart.Presentation.Controllers
 {
     public abstract class ImparBaseController : ControllerBase
     {
-        private readonly IMediator _mediator;
+        protected readonly IMediator _mediator;
 
         public ImparBaseController(IMediator mediator)
             => _mediator = mediator;
@@ -19,6 +19,12 @@ namespace DesafioImpart.Presentation.Controllers
                 return StatusCode((int)result.StatusCode, result.Content);
 
             return StatusCode((int)result.StatusCode);
+        }
+
+        protected async Task<IQueryable<T>> SendODataCommand<T>(IRequest<IQueryable> request)
+        {
+            var result = await _mediator.Send(request);
+            return result as IQueryable<T>;
         }
 
         protected async Task<ActionResult> SendFileCommand(IRequest<OperationResult> request)

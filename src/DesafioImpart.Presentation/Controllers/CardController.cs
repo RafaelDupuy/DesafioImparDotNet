@@ -1,4 +1,6 @@
 ﻿using DesafioImpar.Application.Requests.Card;
+using DesafioImpar.Application.ViewModels.Card;
+using DesafioImpart.Presentation.Configurations;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -12,8 +14,9 @@ namespace DesafioImpart.Presentation.Controllers
             : base(mediator) { }
 
         [HttpGet]
-        public async Task<ActionResult> GetAllCards() 
-            => await SendCommand(new GetAllCardsWithPhotoRequest());
+        [ODataQuery]
+        public async Task<IQueryable<CardWithPhotoViewModel>> GetFromQuery()
+            => await _mediator.Send(new GetAllCardsODataRequest());
 
         [HttpPost]
         public async Task<ActionResult> PostCardWithImage([FromForm] PostCardRequest request, IFormFile file)

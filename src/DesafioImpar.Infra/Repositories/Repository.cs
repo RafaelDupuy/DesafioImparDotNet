@@ -3,6 +3,7 @@ using DesafioImpar.Infra.Context;
 using DesafioImpar.Infra.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace DesafioImpar.Infra.Repositories
@@ -20,6 +21,9 @@ namespace DesafioImpar.Infra.Repositories
 
         public async Task<IEnumerable<T>> GetAllAsync()
              => await _currentSet.ToListAsync();
+
+        public IQueryable<T> Query()
+            => _currentSet.AsQueryable();
 
         public async Task<T> GetByIdAsync(int id)
             => await _currentSet.FirstOrDefaultAsync(x => x.Id == id);
