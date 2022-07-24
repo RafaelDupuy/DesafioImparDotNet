@@ -1,4 +1,5 @@
 ﻿using DesafioImpar.Infra.Context;
+using DesafioImpar.Infra.Interfaces;
 using DesafioImpar.Infra.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
@@ -20,8 +21,8 @@ namespace DesafioImpar.Infra.DependencyInjection
 
         private static void AddRepositories(this IServiceCollection services)
         {
-            services.AddTransient<PhotoRepository>();
-            services.AddTransient<CardRepository>();
+            services.AddTransient<IPhotoRepository,PhotoRepository>();
+            services.AddTransient<ICardRepository,CardRepository>();
         }
 
         private static void AddDatabase(this IServiceCollection services, IConfiguration configuration)

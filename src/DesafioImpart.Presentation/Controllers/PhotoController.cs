@@ -1,4 +1,5 @@
 ﻿using DesafioImpar.Application.Requests.Photo;
+using DesafioImpar.Application.ViewModels.Photo;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -12,8 +13,14 @@ namespace DesafioImpart.Presentation.Controllers
             : base(mediator) { }
 
         [HttpGet]
+        [ProducesResponseType(typeof(IEnumerable<PhotoViewModel>),200)]
         public async Task<ActionResult> GetAll()
             => await SendCommand(new GetAllPhotosRequest());
+
+        [HttpGet("{id}")]
+        [ProducesResponseType(typeof(byte[]), 200)]
+        public async Task<ActionResult> GetPhotoAsFileById(int id)
+            => await SendFileCommand(new GetPhotoAsFileByIdRequest(id));
 
         [HttpPost]
         public async Task<ActionResult> Post(IFormFile photo)

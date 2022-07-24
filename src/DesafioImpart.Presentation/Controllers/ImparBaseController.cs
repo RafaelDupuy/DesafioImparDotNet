@@ -21,6 +21,17 @@ namespace DesafioImpart.Presentation.Controllers
             return StatusCode((int)result.StatusCode);
         }
 
+        protected async Task<ActionResult> SendFileCommand(IRequest<OperationResult> request)
+        {
+            var result = await _mediator.Send(request);
+            if (result.Content is null)
+                return StatusCode((int)result.StatusCode);
+    
+            var file = result.Content as FileRequestResult;
+            return File(file.Content, file.MimeType, false);
+
+        }
+
         protected string IFormFileToString(IFormFile file)
         {
             using (var ms = new MemoryStream())
