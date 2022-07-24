@@ -2,16 +2,16 @@
 using DesafioImpar.Application.Requests.Photo;
 using DesafioImpar.Application.Shared;
 using DesafioImpar.Domain.Models;
-using DesafioImpar.Infra.Repositories;
+using DesafioImpar.Infra.Interfaces;
 using MediatR;
 
 namespace DesafioImpar.Application.RequestHandlers.Photos
 {
     public class WritePhotoRequestHandler : BaseRequestHandler, IRequestHandler<UploadPhotoRequest, OperationResult>, IRequestHandler<DeletePhotoRequest, OperationResult>
     {
-        private readonly PhotoRepository _photoRepo;
+        private readonly IPhotoRepository _photoRepo;
 
-        public WritePhotoRequestHandler(PhotoRepository photoRepo, IMapper mapper) : base(mapper)
+        public WritePhotoRequestHandler(IPhotoRepository photoRepo, IMapper mapper) : base(mapper)
             => _photoRepo = photoRepo;
 
         public async Task<OperationResult> Handle(UploadPhotoRequest request, CancellationToken cancellationToken)

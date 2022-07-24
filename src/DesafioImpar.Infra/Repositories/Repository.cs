@@ -11,7 +11,7 @@ namespace DesafioImpar.Infra.Repositories
     {
         private readonly ImparContext _context;
 
-        private readonly DbSet<T> _currentSet;
+        protected readonly DbSet<T> _currentSet;
         public Repository(ImparContext context)
         {
             _context = context;

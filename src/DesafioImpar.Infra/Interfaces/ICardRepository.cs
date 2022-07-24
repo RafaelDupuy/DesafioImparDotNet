@@ -1,7 +1,11 @@
 ﻿using DesafioImpar.Domain.Models;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace DesafioImpar.Infra.Interfaces
 {
-    internal interface ICardRepository : IRepository<Card>
-    { }
+    public interface ICardRepository : IRepository<Card>
+    {
+        Task<IEnumerable<Card>> GetAllCardsWithPhoto();
+    }
 }

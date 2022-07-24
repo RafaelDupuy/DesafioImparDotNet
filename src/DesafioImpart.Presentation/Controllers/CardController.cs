@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using DesafioImpar.Application.Requests.Card;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DesafioImpart.Presentation.Controllers
@@ -9,6 +10,20 @@ namespace DesafioImpart.Presentation.Controllers
     {
         public CardController(IMediator mediator)
             : base(mediator) { }
+
+        [HttpGet]
+        public async Task<ActionResult> GetAllCards() 
+            => await SendCommand(new GetAllCardsWithPhotoRequest());
+
+        [HttpPost]
+        public async Task<ActionResult> PostCardWithImage([FromForm] PostCardRequest request, IFormFile file)
+        {
+            if (file.Length == 0)
+                return BadRequest();
+
+            var fileAsString = IFormFileToString(file);
+            return await SendCommand(new PostCardWithImageRequest(request.Name, request.Status, fileAsString));
+        }
         
     }
 }

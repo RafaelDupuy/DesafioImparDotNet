@@ -14,7 +14,7 @@ namespace DesafioImpar.Application.RequestHandlers.Photos
     {
         private readonly IPhotoRepository _photoRepo;
 
-        public ReadPhotoRequestHandler(PhotoRepository photoRepo, IMapper mapper) : base(mapper)
+        public ReadPhotoRequestHandler(IPhotoRepository photoRepo, IMapper mapper) : base(mapper)
             => _photoRepo = photoRepo;
 
         public async Task<OperationResult> Handle(GetAllPhotosRequest request, CancellationToken cancellationToken)

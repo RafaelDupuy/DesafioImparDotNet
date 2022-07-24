@@ -29,7 +29,6 @@ namespace DesafioImpart.Presentation.Controllers
     
             var file = result.Content as FileRequestResult;
             return File(file.Content, file.MimeType, false);
-
         }
 
         protected string IFormFileToString(IFormFile file)
