@@ -8,5 +8,6 @@ namespace DesafioImpar.Infra.Repositories
     {
         public PhotoRepository(ImparContext context)
             : base(context) { }
+
     }
 }

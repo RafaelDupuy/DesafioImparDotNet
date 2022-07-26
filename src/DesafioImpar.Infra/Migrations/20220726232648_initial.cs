@@ -38,8 +38,7 @@ namespace DesafioImpar.Infra.Migrations
                         name: "FK_Cards_Photos_PhotoId",
                         column: x => x.PhotoId,
                         principalTable: "Photos",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateIndex(

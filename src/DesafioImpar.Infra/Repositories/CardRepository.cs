@@ -16,5 +16,10 @@ namespace DesafioImpar.Infra.Repositories
             => await _currentSet
                 .Include(c => c.Photo)
                 .ToListAsync();
+
+        public async Task<Card> GetCardByIdWithPhoto(int id)
+            => await _currentSet
+                .Include(c => c.Photo)
+                .FirstOrDefaultAsync(x => x.Id == id);
     }
 }

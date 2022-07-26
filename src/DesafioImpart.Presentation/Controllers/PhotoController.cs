@@ -25,7 +25,7 @@ namespace DesafioImpart.Presentation.Controllers
         [HttpPost]
         public async Task<ActionResult> Post(IFormFile photo)
         {
-            if (photo.Length == 0)
+            if (photo is null || photo.Length == 0)
                 return BadRequest();
 
             var fileAsString = IFormFileToString(photo);

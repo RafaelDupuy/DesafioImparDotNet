@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DesafioImpar.Infra.Migrations
 {
     [DbContext(typeof(ImparContext))]
-    [Migration("20220724164731_initial")]
+    [Migration("20220726232648_initial")]
     partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -71,7 +71,7 @@ namespace DesafioImpar.Infra.Migrations
                     b.HasOne("DesafioImpar.Domain.Models.Photo", "Photo")
                         .WithOne("Card")
                         .HasForeignKey("DesafioImpar.Domain.Models.Card", "PhotoId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.Navigation("Photo");

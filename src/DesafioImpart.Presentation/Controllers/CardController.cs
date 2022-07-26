@@ -21,16 +21,26 @@ namespace DesafioImpart.Presentation.Controllers
         [HttpPost]
         public async Task<ActionResult> PostCardWithImage([FromForm] PostCardRequest request, IFormFile file)
         {
-            if (file.Length == 0)
+            if (file is null || file.Length == 0)
                 return BadRequest();
 
             var fileAsString = IFormFileToString(file);
             return await SendCommand(new PostCardWithImageRequest(request.Name, request.Status, fileAsString));
         }
 
+        [HttpPut("{id}")]
+        public async Task<ActionResult> UpdateCard([FromForm] PostCardRequest request, IFormFile file, int id)
+        {
+            if (file is null || file.Length == 0)
+                return BadRequest();
+
+            var fileAsString = IFormFileToString(file);
+            return await SendCommand(new UpdateCardWithPhotoRequest(id, request.Name, request.Status, fileAsString));
+        }
+
         [HttpDelete("{id}")]
         public async Task<ActionResult> Delete(int id)
             => await SendCommand(new DeleteCardRequest(id));
-        
+
     }
 }

@@ -1,8 +1,6 @@
 ﻿using AutoMapper;
 using DesafioImpar.Application.Requests.Card;
-using DesafioImpar.Application.Shared;
 using DesafioImpar.Application.ViewModels.Card;
-using DesafioImpar.Domain.Models;
 using DesafioImpar.Infra.Interfaces;
 using MediatR;
 

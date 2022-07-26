@@ -45,7 +45,7 @@ namespace DesafioImpar.Infra.Migrations
                     b.HasIndex("PhotoId")
                         .IsUnique();
 
-                    b.ToTable("Cards", (string)null);
+                    b.ToTable("Cards");
                 });
 
             modelBuilder.Entity("DesafioImpar.Domain.Models.Photo", b =>
@@ -61,7 +61,7 @@ namespace DesafioImpar.Infra.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Photos", (string)null);
+                    b.ToTable("Photos");
                 });
 
             modelBuilder.Entity("DesafioImpar.Domain.Models.Card", b =>
@@ -69,7 +69,7 @@ namespace DesafioImpar.Infra.Migrations
                     b.HasOne("DesafioImpar.Domain.Models.Photo", "Photo")
                         .WithOne("Card")
                         .HasForeignKey("DesafioImpar.Domain.Models.Card", "PhotoId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.Navigation("Photo");
