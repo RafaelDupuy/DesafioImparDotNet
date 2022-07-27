@@ -19,23 +19,14 @@ namespace DesafioImpart.Presentation.Controllers
             => await _mediator.Send(new GetAllCardsODataRequest());
 
         [HttpPost]
-        public async Task<ActionResult> PostCardWithImage([FromForm] PostCardRequest request, IFormFile file)
-        {
-            if (file is null || file.Length == 0)
-                return BadRequest();
-
-            var fileAsString = IFormFileToString(file);
-            return await SendCommand(new PostCardWithImageRequest(request.Name, request.Status, fileAsString));
-        }
+        public async Task<ActionResult> PostCardWithImage(PostCardRequest request)
+            => await SendCommand(request);
 
         [HttpPut("{id}")]
-        public async Task<ActionResult> UpdateCard([FromForm] PostCardRequest request, IFormFile file, int id)
+        public async Task<ActionResult> UpdateCard(int id, UpdateCardWithPhotoRequest request)
         {
-            if (file is null || file.Length == 0)
-                return BadRequest();
-
-            var fileAsString = IFormFileToString(file);
-            return await SendCommand(new UpdateCardWithPhotoRequest(id, request.Name, request.Status, fileAsString));
+            request.Id = id;
+            return await SendCommand(request);
         }
 
         [HttpDelete("{id}")]

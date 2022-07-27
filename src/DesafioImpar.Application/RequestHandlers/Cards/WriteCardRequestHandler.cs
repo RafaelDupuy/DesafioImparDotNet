@@ -8,7 +8,7 @@ using MediatR;
 namespace DesafioImpar.Application.RequestHandlers.Cards
 {
     public class WriteCardRequestHandler : BaseRequestHandler,
-        IRequestHandler<PostCardWithImageRequest, OperationResult>,
+        IRequestHandler<PostCardRequest, OperationResult>,
         IRequestHandler<DeleteCardRequest, OperationResult>,
         IRequestHandler<UpdateCardWithPhotoRequest, OperationResult>
     {
@@ -18,15 +18,13 @@ namespace DesafioImpar.Application.RequestHandlers.Cards
         public WriteCardRequestHandler(ICardRepository cardRepo, IPhotoRepository photoRepo, IMapper mapper) : base(mapper)
             => (_cardRepo, _photoRepo) = (cardRepo, photoRepo);
 
-        public async Task<OperationResult> Handle(PostCardWithImageRequest request, CancellationToken cancellationToken)
+        public async Task<OperationResult> Handle(PostCardRequest request, CancellationToken cancellationToken)
         {
-            var newPhoto = new Photo() { Base64 = request.PhotoBase64 };
-            var photoId = await _photoRepo.InsertAsync(newPhoto);
-
+            var photo = await _photoRepo.GetByIdAsync(request.PhotoId);
             var newCard = new Card();
             newCard.Name = request.Name;
             newCard.Status = request.Status;
-            newCard.PhotoId = photoId;
+            newCard.Photo = photo;
             var newCardId = await _cardRepo.InsertAsync(newCard);
             return Success(newCardId);
 
@@ -38,17 +36,20 @@ namespace DesafioImpar.Application.RequestHandlers.Cards
             if (currentCard is null)
                 return NotFound();
 
-            var currentPhoto = await _photoRepo.GetByIdAsync(currentCard.PhotoId);
+            Photo currentPhoto = null;
+            if (currentCard.PhotoId != request.PhotoId)
+                currentPhoto = await _photoRepo.GetByIdAsync(currentCard.PhotoId);
 
-            var newPhoto = new Photo { Base64 = request.PhotoBase64 };
-            var newPhotoId = await _photoRepo.InsertAsync(newPhoto);
+
+            var newPhoto = await _photoRepo.GetByIdAsync(request.PhotoId);
 
             currentCard.Name = request.Name;
             currentCard.Status = request.Status;
-            currentCard.PhotoId = newPhotoId;
+            currentCard.Photo = newPhoto;
             await _cardRepo.UpdateAsync(currentCard);
 
-            await _photoRepo.Delete(currentPhoto);
+            if (currentPhoto is not null)
+                await _photoRepo.Delete(currentPhoto);
 
             return Success();
 

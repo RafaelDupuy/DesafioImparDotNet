@@ -8,5 +8,7 @@ namespace DesafioImpar.Application.Requests.Card
         public string Name { get; set; }
 
         public string Status { get; set; }
+
+        public int PhotoId { get; set; }
     }
 }
