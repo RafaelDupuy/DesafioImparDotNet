@@ -2,7 +2,7 @@
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
-namespace DesafioImpart.Presentation.Controllers
+namespace DesafioImpar.Presentation.Controllers
 {
     public abstract class ImparBaseController : ControllerBase
     {

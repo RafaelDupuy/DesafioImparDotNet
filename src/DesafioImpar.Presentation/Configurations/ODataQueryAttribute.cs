@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.AspNetCore.OData.Extensions;
 using Microsoft.AspNetCore.OData.Query;
 
-namespace DesafioImpart.Presentation.Configurations
+namespace DesafioImpar.Presentation.Configurations
 {
     public class ODataQueryAttribute : EnableQueryAttribute
     {

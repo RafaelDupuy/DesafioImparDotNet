@@ -1,10 +1,10 @@
 ﻿using DesafioImpar.Application.Requests.Card;
 using DesafioImpar.Application.ViewModels.Card;
-using DesafioImpart.Presentation.Configurations;
+using DesafioImpar.Presentation.Configurations;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
-namespace DesafioImpart.Presentation.Controllers
+namespace DesafioImpar.Presentation.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]

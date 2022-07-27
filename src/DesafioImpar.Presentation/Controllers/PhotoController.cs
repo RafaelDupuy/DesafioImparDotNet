@@ -3,7 +3,7 @@ using DesafioImpar.Application.ViewModels.Photo;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
-namespace DesafioImpart.Presentation.Controllers
+namespace DesafioImpar.Presentation.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
