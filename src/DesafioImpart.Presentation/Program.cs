@@ -7,7 +7,7 @@ var builder = WebApplication.CreateBuilder(args);
 var configuration = builder.Configuration;
 
 builder.Services.AddControllers().AddOData(
-    opt => opt.Count().Filter().SetMaxTop(20));
+    opt => opt.Count().Filter().SetMaxTop(20).OrderBy());
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
