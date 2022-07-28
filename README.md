@@ -1,7 +1,7 @@
 # Avaliação Fullstack Backend
 ## Descrição do projeto:
 
-Essa é uma API feita para a avaliação FullStack da Impar/I9. Feita em .Net Core 6.0
+Essa é uma API feita para a avaliação FullStack da Ímpar/I9. Feita em .Net Core 6.0
 ## Construído com:
 - C#
 - EntityFramework Core
